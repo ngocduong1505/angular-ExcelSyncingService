@@ -1,7 +1,7 @@
 @import "src/app/app.component.scss";
 
 .panel {
-  width:900px;
+  width:1500px;
   padding: 0% 3%;
   
   &__tools {
@@ -42,7 +42,7 @@
   display: inline-block;
   position: relative;
   // must specify the height and width
-  width:800px;
+  width: 1300px;
   height: 800px;
   margin: 2% 0;
   padding: 0px;

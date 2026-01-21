@@ -21,7 +21,7 @@ export class ExcelFileUploadService {
 
       const options = {
         container: 'luckysheet', //luckysheet is the container id
-        lang: 'zh',
+        lang: 'en',
         showinfobar: false,
         data:exportJson.sheets,
         title:"ExampleSheet",
