@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'angular-Excel';
   selectedTemplate: string = '';
   currentRoute: string = '';
-  templates: string[] = ['ejector', 'forms'];
+  templates: string[] = ['forms'];
 
   constructor(private router: Router) {
     this.router.events.subscribe((event: Event) => {
