@@ -15,6 +15,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsLayoutComponent } from './components/forms-layout/forms-layout.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatTableModule,
     MatExpansionModule,
     HttpClientModule,
-    MatRadioModule
+    MatRadioModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

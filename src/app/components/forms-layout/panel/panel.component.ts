@@ -6,6 +6,7 @@ import { PairForm } from 'src/app/interface/pairForm';
 import { ExcelFileUploadService } from '../../../utilities/ExcelFileUpload.service';
 import { ExcelFileDownloadService } from '../../../utilities/ExcelFileDownload.service';
 import { PairFormSyncService } from '../../../service/PairFormService/PairFormSync.service';
+import { DragDropService } from '../../../service/DragDrop.service';
 
 @Component({
   selector: 'app-panel',
@@ -17,7 +18,8 @@ export class PanelComponent {
   pairForms: PairForm[] = [];
   constructor(private pfSyncService: PairFormSyncService,
               private fileDownloadService: ExcelFileDownloadService,
-              private fileUploadService: ExcelFileUploadService) { 
+              private fileUploadService: ExcelFileUploadService,
+              private dragDropService: DragDropService) { 
   }
 
   ngOnInit(): void {
@@ -28,6 +30,9 @@ export class PanelComponent {
     // therefore, to ensure the luckysheet is ready, the subscription is placed later
 
     setTimeout(() => {
+      // Khởi tạo drag-drop functionality
+      this.dragDropService.initializeDragDrop('#luckysheet');
+
       // retrieve the pairForms from the server at the first time
       this.pfSyncService.pairFormApiService.getPairFormsFromServer().subscribe(pairForms => {
         this.pairForms = pairForms;
@@ -83,5 +88,34 @@ export class PanelComponent {
 
   downloadExcel(): void {
     this.fileDownloadService.exportExcelData(luckysheet.getLuckysheetfile());
+  }
+
+  /**
+   * Xử lý khi user bắt đầu kéo item từ draggable-items
+   */
+  onItemDragStart(event: DragEvent, itemType: string): void {
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = 'copy';
+      event.dataTransfer.setData('text/plain', `${itemType}_item_${Date.now()}`);
+      event.dataTransfer.setData('application/x-item-type', itemType);
+      
+      // Set drag image (optional)
+      const dragImage = document.createElement('div');
+      dragImage.textContent = itemType;
+      dragImage.style.position = 'absolute';
+      dragImage.style.top = '-1000px';
+      dragImage.style.padding = '10px 15px';
+      dragImage.style.backgroundColor = '#1976d2';
+      dragImage.style.color = 'white';
+      dragImage.style.borderRadius = '4px';
+      dragImage.style.fontSize = '14px';
+      document.body.appendChild(dragImage);
+      
+      event.dataTransfer.setDragImage(dragImage, 0, 0);
+      
+      setTimeout(() => document.body.removeChild(dragImage), 0);
+      
+      console.log(`Started dragging ${itemType} item`);
+    }
   }
 }

@@ -16,5 +16,51 @@
       <button mat-raised-button (click)="downloadExcel()">Download</button>
     </div>
   </div>
-  <div id="luckysheet"></div>
+
+  <div class="panel__content">
+    <!-- Draggable items container -->
+    <div class="draggable-items">
+      <h3 class="draggable-items__title">Kéo items vào Luckysheet</h3>
+      <div 
+        class="draggable-item" 
+        draggable="true"
+        (dragstart)="onItemDragStart($event, 'text')"
+      >
+        📝 Text Item
+      </div>
+      <div 
+        class="draggable-item" 
+        draggable="true"
+        (dragstart)="onItemDragStart($event, 'number')"
+      >
+        🔢 Number Item
+      </div>
+      <div 
+        class="draggable-item" 
+        draggable="true"
+        (dragstart)="onItemDragStart($event, 'date')"
+      >
+        📅 Date Item
+      </div>
+      <div 
+        class="draggable-item" 
+        draggable="true"
+        (dragstart)="onItemDragStart($event, 'email')"
+      >
+        ✉️ Email Item
+      </div>
+      <div 
+        class="draggable-item" 
+        draggable="true"
+        (dragstart)="onItemDragStart($event, 'phone')"
+      >
+        ☎️ Phone Item
+      </div>
+    </div>
+
+    <!-- Drag-drop zone container -->
+    <div class="luckysheet-container" id="luckysheet"></div>
+  </div>
+
+  <div class="drop-hint" *ngIf="false">Drop your files or images here</div>
 </div>
